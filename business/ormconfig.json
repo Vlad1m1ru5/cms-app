@@ -1,6 +1,6 @@
 {
    "type": "mongodb",
-   "url": "mongodb+srv://admin:admin@content.vy86z.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
+   "url": "mongodb+srv://admin:adminp@content.vy86z.mongodb.net/test?retryWrites=true&w=majority",
    "useNewUrlParser": true,
    "synchronize": true,
    "logging": false,

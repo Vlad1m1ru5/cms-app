@@ -1,21 +1,21 @@
 import "reflect-metadata";
 import { createConnection } from "typeorm";
-import { User } from "./entity/User";
+import { Markdown } from "./entity";
+import { aggregateRouter, HealthRouter, MarkdownRouter } from "./router";
+import { server } from "./server";
+import { MarkdownService } from "./service";
+
+const port = 9000;
 
 createConnection()
   .then(async (connection) => {
-    console.log("Inserting a new user into the database...");
-    const user = new User();
-    user.firstName = "Timber";
-    user.lastName = "Saw";
-    user.age = 25;
-    await connection.manager.save(user);
-    console.log("Saved a new user with id: " + user.id);
+    const healthRouter = HealthRouter();
 
-    console.log("Loading users from the database...");
-    const users = await connection.manager.find(User);
-    console.log("Loaded users: ", users);
+    const markdownRepository = connection.manager.getMongoRepository(Markdown);
+    const markdownService = new MarkdownService(markdownRepository);
+    const markdownRouter = MarkdownRouter(markdownService);
+    const router = aggregateRouter({ healthRouter, markdownRouter });
 
-    console.log("Here you can setup and run express/koa/any other framework.");
+    server({ port, router });
   })
   .catch((error) => console.log(error));
