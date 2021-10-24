@@ -6,6 +6,10 @@ import { server } from "./server";
 import { MarkdownService } from "./service";
 
 const port = 9000;
+const corsOptions = {
+  origin: "http://localhost:3000",
+  optionsSuccessStatus: 200,
+};
 
 createConnection()
   .then(async (connection) => {
@@ -16,6 +20,6 @@ createConnection()
     const markdownRouter = MarkdownRouter(markdownService);
     const router = aggregateRouter({ healthRouter, markdownRouter });
 
-    server({ port, router });
+    server({ port, corsOptions, router });
   })
   .catch((error) => console.log(error));

@@ -16,7 +16,7 @@ export const MarkdownRouter = (markdownService: MarkdownService): Router => {
     async (req, res): Promise<void> => {
       const { file, headers } = req;
 
-      if (headers["content-type"] !== "application/form-data") {
+      if (!headers["content-type"].startsWith("multipart/form-data;")) {
         return res.status(415).end();
       }
 
