@@ -10,3 +10,17 @@ export const postMarkdown = async (
   const json = await response.json();
   return { data: json };
 };
+
+export const getMarkdown = async (
+  markdownId: string
+): Promise<{ data: MarkdownDTO }> => {
+  const response = await fetch(`${url}/${markdownId}`);
+  const json = await response.json();
+  return { data: json };
+};
+
+export const getMarkdownList = async (): Promise<{ data: MarkdownDTO[] }> => {
+  const response = await fetch(url);
+  const json = await response.json();
+  return { data: json };
+};

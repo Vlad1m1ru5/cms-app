@@ -6,5 +6,8 @@ export class Markdown {
   id: ObjectID;
 
   @Column()
+  label: string;
+
+  @Column()
   content: string;
 }
